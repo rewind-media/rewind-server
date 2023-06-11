@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+BASEDIR=$(cd $(dirname $0) && pwd)
+cd $BASEDIR
+cd ..
+
+./gradlew server:run & SERVER_WAITPID=$!
+./gradlew worker:run & WORKER_WAITPID=$!
+
+wait $SERVER_WAITPID
+wait $WORKER_WAITPID

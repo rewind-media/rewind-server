@@ -1,0 +1,6 @@
+[submodule "web/rewind-web"]
+	path = web/rewind-web
+	url = git@github.com:rewind-media/rewind-web.git
+[submodule "client/rewind-api-spec"]
+	path = client/rewind-api-spec
+	url = git@github.com:rewind-media/rewind-api-spec.git

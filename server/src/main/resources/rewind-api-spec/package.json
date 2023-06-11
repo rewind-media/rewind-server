@@ -1,0 +1,32 @@
+{
+  "name": "@rewind-media/rewind-api-spec",
+  "version": "0.1.27",
+  "license": "AGPLv3",
+  "description": "OpenAPI Specification for the public api of the Rewind-Media project",
+  "repository": {
+    "url": "https://github.com/rewind-media/rewind-api-spec.git"
+  },
+  "author": {
+    "name": "Kenneth Sanders",
+    "email": "npm@kensand.net"
+  },
+  "private": false,
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "prettier": "prettier --write .",
+    "update": "npm update --save && ((! git diff --exit-code package.json package-lock.json > /dev/null && git add package.json package-lock.json && git commit -m 'Dependency updates') || true)",
+    "bundle": "mkdir -p ./dist && npx swagger-cli bundle ./src/openapi.yaml -o ./dist/openapi.json",
+    "validate": "npx swagger-cli validate ./dist/openapi.json",
+    "build": "npm run clean && npm run prettier && npm run bundle && npm run validate",
+    "pub": "npm run clean && npm run build && npm version patch && npm publish"
+  },
+  "eslintConfig": {},
+  "devDependencies": {
+    "@apidevtools/swagger-cli": "^4.0.4",
+    "prettier": "^2.8.8"
+  },
+  "files": [
+    "./dist/openapi.json"
+  ],
+  "main": "./dist/openapi.json"
+}
