@@ -4,8 +4,8 @@ BASEDIR=$(cd $(dirname $0) && pwd)
 cd $BASEDIR
 cd ..
 
-./gradlew server:run & SERVER_WAITPID=$!
-./gradlew worker:run & WORKER_WAITPID=$!
+[[ -z $DISABLE_API ]] && ./gradlew server:run & SERVER_WAITPID=$!
+[[ -z $DISABLE_WORKER ]] && ./gradlew worker:run & WORKER_WAITPID=$!
 
 wait $SERVER_WAITPID
 wait $WORKER_WAITPID
