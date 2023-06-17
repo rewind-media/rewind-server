@@ -75,3 +75,18 @@ tasks.register("prepareKotlinBuildScriptModel") {}
 kotlin {
     jvmToolchain(17)
 }
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "io.media.rewind.worker.MainKt"
+    }
+
+    from(configurations.runtimeClasspath.get().map {
+        if (it.isDirectory) {
+            it
+        } else {
+            zipTree(it)
+        }
+    })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

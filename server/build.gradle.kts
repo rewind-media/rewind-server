@@ -31,7 +31,7 @@ repositories {
 dependencies {
     implementation(project(":client"))
     implementation(project(":common"))
-    runtimeOnly(project(":web"))
+    implementation(project(":web"))
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-sessions-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-host-common-jvm:$ktor_version")
@@ -74,4 +74,19 @@ kotlin {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "io.media.rewind.ApplicationKt"
+    }
+
+    from(configurations.runtimeClasspath.get().map {
+        if (it.isDirectory) {
+            it
+        } else {
+            zipTree(it)
+        }
+    })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
